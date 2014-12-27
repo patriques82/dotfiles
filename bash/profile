@@ -1,0 +1,37 @@
+##
+# Bash will first read .bash_profile for setting environment alias and this directs it to this file.
+# to understand why read about .bashrc and .bash_profile files ->
+#    http://superuser.com/questions/183870/difference-between-bashrc-and-bash-profile
+# Basically it if for making sure that the same environments are set if you ever switch terminal from
+# say bash -> zshell or something else, who always reads the .profile first. If you switch to another
+# terminal make sure to add a script to the .___profile file that reads the this file first.
+#
+# Example for .bash_profile:
+#
+# if [ -r ~/.profile ]; then . ~/.profile; fi
+# case "$-" in *i*) if [ -r ~/.bashrc ]; then . ~/.bashrc; fi;; esac
+#
+##
+
+export PATH=/usr/local/bin:$PATH
+export PATH=/opt/local/sbin:$PATH
+export PATH=$HOME/local/bin:$PATH
+export PATH=$HOME/Library/Haskell/bin:$PATH # get and use cabal-updates, as well as other programs shipped with GHC like hsc2hs
+export PATH=$HOME/Library/Haskell/ghc-7.6.3/lib/hlint-1.9.3/bin/hlint:$PATH # hlint
+export PATH=$HOME/.node/bin:$PATH # allow npm to install generators globally,.i.e in /usr/ folder without doing sudo
+
+# Java maven
+export M2_HOME=$HOME/Applications/apache-maven-3.2.3
+export M2=$M2_HOME/bin
+export PATH=$M2:$PATH
+export M2_REPO=$HOME/.m2/repository
+export JAVA_HOME=`/usr/libexec/java_home -v 1.7` # this is mostly for maven
+
+export EDITOR="/usr/bin/vim"
+
+# cmatrix (for matrix experience when running bash)
+# cat ~/Scripts/startrek.txt
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+# alias rstop = 'kill -9 $(lsof -i :3000 -t)'

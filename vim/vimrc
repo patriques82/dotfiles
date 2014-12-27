@@ -1,0 +1,114 @@
+let mapleader = ","
+syntax enable
+
+" Colorschemes and stuff (the most important part of this vimrc)
+set guifont=Monaco:h13
+set t_Co=256
+colors Tomorrow-Night-Eighties " default colorscheme
+
+" Configuration for vim-css-color
+let g:cssColorVimDoNotMessMyUpdatetime = 1
+
+" Toggle colorschemes <Leader>c
+nnoremap <silent> <Leader>c :exec "color " .
+    \ ((g:colors_name == "Tomorrow-Night-Eighties") ? "solarized" : "Tomorrow-Night-Eighties")<CR>
+
+" Enable powerline (else only on split windows)
+set laststatus=2
+
+" Textformatting and stuff
+set textwidth=80               " controls the wrap width
+set formatoptions=cqt          " Automatic wrapping
+set wrap                       " enables automatic wrapping of line
+set wrapmargin=0
+
+" Indentation
+set backspace=indent,eol,start " allow backspacing over everything in insert mode
+set autoindent                 " always set autoindenting on
+set copyindent                 " copy the previous indentation on autoindenting
+
+" Tabspecific options
+set expandtab                  " Use spaces instead of tabs
+set tabstop=2                  " a tab is 2 spaces
+set shiftwidth=2               " number of spaces to use for autoindenting
+set smarttab                   " converts tabs to spaces to avoid tabs in the file (good practice)
+
+" search options
+set showmatch                  " set show matching parenthesis
+set ignorecase                 " ignore case when searching
+set smartcase                  " ignore case if search pattern is all lowercase,
+                               " case-sensitive otherwise
+" other options
+set number                     " always show line numbers
+set hlsearch                   " highlight search terms
+set incsearch                  " show search matches as you type
+set noswapfile                 " don´t create a swap file
+set noswapfile                 " don´t create a swap file
+set visualbell                 " turn off error sound
+
+" For Xiki
+let $XIKI_DIR = "~/xiki"
+source $XIKI_DIR/etc/vim/xiki.vim
+
+" For Pathogen (handle plugins)
+set nocompatible
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
+
+" Easy window navigation (thank god for this!)
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+" I really hate that things don't auto-center
+nmap G Gzz
+nmap n nzz
+nmap N Nzz
+nmap } }zz
+nmap { {zz
+
+" EasyMotion setup
+let g:EasyMotion_smartcase = 1  " enables smartcase search
+nmap <Leader>l <Plug>(easymotion-lineforward)
+nmap <Leader>j <Plug>(easymotion-j)zz
+nmap <Leader>k <Plug>(easymotion-k)zz
+nmap <Leader>h <Plug>(easymotion-linebackward)
+
+" Ctags
+set tags=./tags; " Tells Vim where to look for the tags file.
+
+" Toggle relative numbers <C-t>
+function! NumberToggle()
+    if(&relativenumber == 1)
+        set norelativenumber
+    else
+        set relativenumber
+    endif
+endfunc
+nnoremap <C-t> :call NumberToggle()<cr>
+
+" Highlight any text that surpasses the given value
+augroup vimrc_autocmds
+  autocmd BufEnter * highlight OverLength
+                    \ ctermbg=236 guibg=#303030
+  autocmd BufEnter * match OverLength /\%81v.*/
+augroup END
+
+" haskellmode
+" au BufEnter *.hs compiler ghc " Use the features provided by the GHC
+" Configure browser for haskell_doc.vim
+" let g:ghc = "/usr/bin/ghc"
+" let g:haddock_browser="/Applications/Firefox.app/Contents/MacOS/firefox" " For viewing Haddock documentation
+" let g:haddock_browser_callformat = "%s %s"
+
+" ghc-mod (Not working)
+" map <silent> tu :call GHC_BrowseAll()<CR> " Reload
+" map <silent> tw :call GHC_ShowType(1)<CR> " Type lookup
+
+" Mappings
+map <Leader>n :NERDTreeToggle<CR> " (nerdTree)
+cnoremap fw :FixWhitespace " (FixWhitespace)
+
+
