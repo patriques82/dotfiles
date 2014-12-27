@@ -47,8 +47,8 @@ set noswapfile                 " don´t create a swap file
 set visualbell                 " turn off error sound
 
 " For Xiki
-let $XIKI_DIR = "~/xiki"
-source $XIKI_DIR/etc/vim/xiki.vim
+" let $XIKI_DIR = "~/xiki"
+" source $XIKI_DIR/etc/vim/xiki.vim
 
 " For Pathogen (handle plugins)
 set nocompatible
