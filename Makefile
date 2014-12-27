@@ -30,7 +30,7 @@ vim: ~/.vimrc ~/.vim
 
 ~/.vim:
 	rm -rf $@
-	cp $(PWD)/vim/vim $@
+	ln -s $(PWD)/vim/vim $@
 
 clean:
 	rm -rf ~/.bashrc ~/.bash_profile ~/.profile ~/.zshrc
