@@ -4,6 +4,7 @@ syntax enable
 " Colorschemes and stuff (the most important part of this vimrc)
 set guifont=Monaco:h13
 set t_Co=256
+let g:solarized_termcolors=256
 colors Tomorrow-Night-Eighties " default colorscheme
 
 " Configuration for vim-css-color
