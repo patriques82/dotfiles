@@ -1,2 +1,4 @@
-all:
-	cp $(PWD)/bash/test ~/.test
+bash: ~/.bashrc
+
+~/.bashrc:
+	ln -s $(PWD)/bash/bashrc $@
