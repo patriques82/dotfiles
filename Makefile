@@ -2,11 +2,13 @@
 # If you already have dotfiles in you ~ dir then run : make clean to remove old
 # files first.
 
+dependencies:
+	sudo apt-get install curl
+
 bash: ~/.bashrc ~/.bash_profile ~/.profile ~/.zshrc
 
 ~/.bashrc:
 	echo "Removing/Installing dotfiles for bash..."
-	echo ""
 	rm -f $@
 	ln -s $(PWD)/bash/bashrc $@
 
@@ -22,18 +24,17 @@ bash: ~/.bashrc ~/.bash_profile ~/.profile ~/.zshrc
 	rm -f $@
 	ln -s $(PWD)/bash/zshrc $@
 
-vim: ~/.vimrc ~/.vim
+vim: ~/.vim ~/.vimrc
+
+~/.vim:
+	rm -rf $@
+	cp $(PWD)/vim/vim $@
 
 ~/.vimrc:
 	echo "Removing/Installing dotfiles for vim..."
-	echo ""
 	rm -f $@
 	ln -s $(PWD)/vim/vimrc $@
 
-~/.vim
-	rm -rf $@
-	cp -s $(PWD)/vim/vimrc $@
-	rm -f $@/.vimrc
 
 clean:
 	rm -rf ~/.bashrc ~/.bash_profile ~/.profile ~/.zshrc
