@@ -13,12 +13,17 @@
 #
 ##
 
+# Binaries
 export PATH=/usr/local/bin:$PATH
 export PATH=/opt/local/sbin:$PATH
 export PATH=$HOME/local/bin:$PATH
-export PATH=$HOME/Library/Haskell/bin:$PATH # get and use cabal-updates, as well as other programs shipped with GHC like hsc2hs
+
+# Haskell
+export PATH=$HOME/Library/Haskell/bin:$PATH # get and use cabal-updates, like hsc2hs
 export PATH=$HOME/Library/Haskell/ghc-7.6.3/lib/hlint-1.9.3/bin/hlint:$PATH # hlint
-export PATH=$HOME/.node/bin:$PATH # allow npm to install generators globally,.i.e in /usr/ folder without doing sudo
+
+# Node
+export PATH=$HOME/.node/bin:$PATH # allow npm to install generators in /usr/ folder without doing sudo
 
 # Java maven
 export M2_HOME=$HOME/Applications/apache-maven-3.2.3
@@ -27,11 +32,25 @@ export PATH=$M2:$PATH
 export M2_REPO=$HOME/.m2/repository
 export JAVA_HOME=`/usr/libexec/java_home -v 1.7` # this is mostly for maven
 
+# Vim
 export EDITOR="/usr/bin/vim"
 
-# cmatrix (for matrix experience when running bash)
-# cat ~/Scripts/startrek.txt
-
+# Ruby
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
+# Octave
+export GNUTERM=x11
+export OCTAVE_TERMINAL=X11
+if [ -x /usr/libexec/path_helper ]; then
+  eval `/usr/libexec/path_helper -s` # Help with mactex (latex)
+fi
+
+# Docker
+export DOCKER_HOST=tcp://192.168.59.103:2376
+export DOCKER_CERT_PATH=$HOME/.boot2docker/certs/boot2docker-vm
+export DOCKER_TLS_VERIFY=1
+
+# Silly stuff
+# cmatrix (for matrix experience when running bash)
+# cat ~/Scripts/startrek.txt
 # alias rstop = 'kill -9 $(lsof -i :3000 -t)'
