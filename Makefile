@@ -21,7 +21,7 @@ bash: ~/.bashrc ~/.bash_profile ~/.profile ~/.zshrc
 	rm -f $@
 	ln -s $(PWD)/bash/zshrc $@
 
-vim: ~/.vimrc ~/.vim 
+vim: ~/.vimrc ~/.vim
 
 ~/.vimrc:
 	echo "Removing/Installing dotfiles for vim..."
@@ -32,7 +32,19 @@ vim: ~/.vimrc ~/.vim
 	rm -rf $@
 	ln -s $(PWD)/vim/vim $@
 
+git: ~/.gitattributes ~/.gitconfig
+
+~/.gitattributes:
+	echo "Removing/Installing dotfiles for git..."
+	rm -f $@
+	ln -s $(PWD)/git/gitattributes $@
+
+~/.gitconfig
+	rm -f $@
+	ln -s $(PWD)/git/gitconfig $@
+
 clean:
 	rm -rf ~/.bashrc ~/.bash_profile ~/.profile ~/.zshrc
 	rm -rf ~/.vimrc ~/.vim
+	rm -rf ~/.gitattributes ~/.gitconfig
 

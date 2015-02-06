@@ -1,0 +1,7 @@
+[user]
+	name = Patrik Nygren
+	email = patriknygren82@gmail.com
+[push]
+	default = simple
+[color]
+	ui = 1
