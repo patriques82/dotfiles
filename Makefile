@@ -3,45 +3,29 @@
 # files first.
 
 bash: ~/.bashrc ~/.bash_profile ~/.profile ~/.zshrc
-
-~/.bashrc:
-	echo "Removing/Installing dotfiles for bash..."
-	rm -f $@
-	ln -s $(PWD)/bash/bashrc $@
-
-~/.bash_profile:
-	rm -f $@
-	ln -s $(PWD)/bash/bash_profile $@
-
+@echo Linking bashrc, bash_profile, profile, zshrc
 ~/.profile:
-	rm -f $@
 	ln -s $(PWD)/bash/profile $@
-
+~/.bashrc:
+	ln -s $(PWD)/bash/bashrc $@
+~/.bash_profile:
+	ln -s $(PWD)/bash/bash_profile $@
 ~/.zshrc:
-	rm -f $@
 	ln -s $(PWD)/bash/zshrc $@
 
 vim: ~/.vimrc ~/.vim
-
+@echo Linking vimrc and vim
 ~/.vimrc:
-	echo "Removing/Installing dotfiles for vim..."
-	rm -f $@
 	ln -s $(PWD)/vim/vimrc $@
-
 ~/.vim:
 	rm -rf $@
 	ln -s $(PWD)/vim/vim $@
 
 git: ~/.gitattributes ~/.gitconfig
-
 ~/.gitattributes:
-	echo "Removing/Installing dotfiles for git..."
-	rm -f $@
 	ln -s $(PWD)/git/gitattributes $@
-
-~/.gitconfig
-	rm -f $@
-	ln -s $(PWD)/git/gitconfig $@
+~/.gitconfig:
+	cp git/gitconfig $@
 
 clean:
 	rm -rf ~/.bashrc ~/.bash_profile ~/.profile ~/.zshrc

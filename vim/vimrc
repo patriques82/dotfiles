@@ -5,7 +5,7 @@ syntax enable
 set guifont=Monaco:h13
 set t_Co=256
 let g:solarized_termcolors=256
-colors Tomorrow-Night-Eighties " default colorscheme
+colors solarized " default colorscheme
 
 " Configuration for vim-css-color
 let g:cssColorVimDoNotMessMyUpdatetime = 1
@@ -44,10 +44,9 @@ set number                     " always show line numbers
 set hlsearch                   " highlight search terms
 set incsearch                  " show search matches as you type
 set noswapfile                 " don´t create a swap file
-set noswapfile                 " don´t create a swap file
 set visualbell                 " turn off error sound
 
-" For Xiki
+" For Xiki (Not completed yet)
 " let $XIKI_DIR = "~/xiki"
 " source $XIKI_DIR/etc/vim/xiki.vim
 
@@ -97,6 +96,9 @@ augroup vimrc_autocmds
   autocmd BufEnter * match OverLength /\%81v.*/
 augroup END
 
+" Formatting options
+au BufNewFile,BufRead *.ejs set filetype=html " read ejs as html
+
 " haskellmode
 " au BufEnter *.hs compiler ghc " Use the features provided by the GHC
 " Configure browser for haskell_doc.vim
@@ -111,5 +113,4 @@ augroup END
 " Mappings
 map <Leader>n :NERDTreeToggle<CR> " (nerdTree)
 cnoremap fw :FixWhitespace " (FixWhitespace)
-
 
