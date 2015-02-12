@@ -1,9 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/Users/patriknygren/Projects/O-viu'
-let g:netrw_dirhist_2='/Users/patriknygren/Projects/oviu'
-let g:netrw_dirhist_3='/Users/patriknygren/Projects/o-viu/app'
-let g:netrw_dirhist_4='/Users/patriknygren/Projects/o-viu'
-let g:netrw_dirhist_5='/Users/patriknygren/Desktop/Shared/MachineLearning/Coursera/mlclass-ex1-008/mlclass-ex1'
-let g:netrw_dirhist_6='/Users/patriknygren'
-let g:netrw_dirhist_7='/Users/patriknygren/dotfiles/vim/vim'
