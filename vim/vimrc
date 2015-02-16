@@ -25,14 +25,12 @@ set wrapmargin=0
 
 " Indentation
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
-set autoindent                 " always set autoindenting on
-set copyindent                 " copy the previous indentation on autoindenting
 
 " Tabspecific options
+filetype plugin indent on
 set expandtab                  " Use spaces instead of tabs
-set tabstop=2                  " a tab is 2 spaces
+set softtabstop=2              " a tab is 2 spaces
 set shiftwidth=2               " number of spaces to use for autoindenting
-set smarttab                   " converts tabs to spaces to avoid tabs in the file (good practice)
 
 " search options
 set showmatch                  " set show matching parenthesis
