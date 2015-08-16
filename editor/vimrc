@@ -97,18 +97,21 @@ augroup END
 " Formatting options
 au BufNewFile,BufRead *.ejs set filetype=html " read ejs as html
 
-" haskellmode
-" au BufEnter *.hs compiler ghc " Use the features provided by the GHC
-" Configure browser for haskell_doc.vim
-" let g:ghc = "/usr/bin/ghc"
-" let g:haddock_browser="/Applications/Firefox.app/Contents/MacOS/firefox" " For viewing Haddock documentation
-" let g:haddock_browser_callformat = "%s %s"
-
-" ghc-mod (Not working)
-" map <silent> tu :call GHC_BrowseAll()<CR> " Reload
-" map <silent> tw :call GHC_ShowType(1)<CR> " Type lookup
-
 " Mappings
 map <Leader>n :NERDTreeToggle<CR> " (nerdTree)
 cnoremap fw :FixWhitespace " (FixWhitespace)
 
+"""" Plugins
+
+" CtrlP
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+
+" Syntactis
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
