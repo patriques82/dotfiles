@@ -27,7 +27,11 @@ export M2_HOME=$HOME/Applications/apache-maven-3.3.3
 export M2=$M2_HOME/bin
 export PATH=$M2:$PATH
 export M2_REPO=$HOME/.m2/repository
-export JAVA_HOME=`/usr/libexec/java_home -v 1.8` # this is mostly for maven
+export JAVA_HOME=`/usr/libexec/java_home -v 1.7` # this is mostly for maven
+
+# Scala
+export SCALA_HOME=/usr/local/share/scala-2.11.7
+export PATH=$SCALA_HOME/bin:$PATH
 
 # Vim
 export EDITOR="/usr/bin/vim"
@@ -47,7 +51,14 @@ export DOCKER_HOST=tcp://192.168.59.103:2376
 export DOCKER_CERT_PATH=$HOME/.boot2docker/certs/boot2docker-vm
 export DOCKER_TLS_VERIFY=1
 
+# OpenNI (required for PCL)
+export OPENNI2_INCLUDE=/usr/local/include/ni2
+export OPENNI2_REDIST=/usr/local/lib/ni2
+
 # Silly stuff
 # cmatrix (for matrix experience when running bash)
 # cat ~/Scripts/startrek.txt
 # alias rstop = 'kill -9 $(lsof -i :3000 -t)'
+
+# tell ctags from homebrew
+ctags=/usr/local/bin/ctags

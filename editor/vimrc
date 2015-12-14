@@ -74,8 +74,10 @@ nmap <Leader>j <Plug>(easymotion-j)zz
 nmap <Leader>k <Plug>(easymotion-k)zz
 nmap <Leader>h <Plug>(easymotion-linebackward)
 
-" Ctags
+" Ctags (To create ctags file 'ctags *'
 set tags=./tags; " Tells Vim where to look for the tags file.
+nnoremap <leader>. :CtrlPTag<cr>
+nnoremap <silent> <Leader>b :TagbarToggle<CR>
 
 " Toggle relative numbers <C-t>
 function! NumberToggle()
@@ -88,18 +90,25 @@ endfunc
 nnoremap <C-t> :call NumberToggle()<cr>
 
 " Highlight any text that surpasses the given value
-augroup vimrc_autocmds
-  autocmd BufEnter * highlight OverLength
-                    \ ctermbg=236 guibg=#303030
-  autocmd BufEnter * match OverLength /\%81v.*/
-augroup END
+"augroup vimrc_autocmds
+  "autocmd BufEnter * highlight OverLength
+                    "\ ctermbg=236 guibg=#303030
+  "autocmd BufEnter * match OverLength /\%81v.*/
+"augroup END
+
+" open Nerdtree automatically when starting up
+"autocmd vimenter * NERDTree
+
+" apperance of directory in Explore
+"let g:netrw_liststyle=3
 
 " Formatting options
 au BufNewFile,BufRead *.ejs set filetype=html " read ejs as html
 
 " Mappings
-map <Leader>n :NERDTreeToggle<CR> " (nerdTree)
+map <Leader>n :NERDTreeToggle<CR> " (Nerdtree)
 cnoremap fw :FixWhitespace " (FixWhitespace)
+map <Leader>p :CtrlPClearAllCaches " (clear cache for CtrlP)
 
 """" Plugins
 
