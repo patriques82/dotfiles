@@ -29,8 +29,8 @@ set backspace=indent,eol,start " allow backspacing over everything in insert mod
 " Tabspecific options
 filetype plugin indent on
 set expandtab                  " Use spaces instead of tabs
-set softtabstop=2              " a tab is 2 spaces
-set shiftwidth=2               " number of spaces to use for autoindenting
+set softtabstop=4              " a tab is 4 spaces
+set shiftwidth=4               " number of spaces to use for autoindenting
 
 " search options
 set showmatch                  " set show matching parenthesis
@@ -120,7 +120,7 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 0 " Turn off quickfix messages
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0

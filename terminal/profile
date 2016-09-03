@@ -27,7 +27,7 @@ export M2_HOME=$HOME/Applications/apache-maven-3.3.3
 export M2=$M2_HOME/bin
 export PATH=$M2:$PATH
 export M2_REPO=$HOME/.m2/repository
-export JAVA_HOME=`/usr/libexec/java_home -v 1.7` # this is mostly for maven
+#export JAVA_HOME=`/usr/libexec/java_home -v 1.7` # this is mostly for maven
 
 # Scala
 export SCALA_HOME=/usr/local/share/scala-2.11.7
@@ -46,14 +46,15 @@ if [ -x /usr/libexec/path_helper ]; then
   eval `/usr/libexec/path_helper -s` # Help with mactex (latex)
 fi
 
-# Docker
-export DOCKER_HOST=tcp://192.168.59.103:2376
-export DOCKER_CERT_PATH=$HOME/.boot2docker/certs/boot2docker-vm
-export DOCKER_TLS_VERIFY=1
-
 # OpenNI (required for PCL)
 export OPENNI2_INCLUDE=/usr/local/include/ni2
 export OPENNI2_REDIST=/usr/local/lib/ni2
+
+# aliases DOCKER
+alias dstop='docker stop $(docker ps -a -q)' # stop all containers
+alias dremove='docker rm $(docker ps -a -q)' # remove all containers
+alias dclean='docker rm $(docker ps -aq -f status=exited)' # clean exited containers
+
 
 # Silly stuff
 # cmatrix (for matrix experience when running bash)
