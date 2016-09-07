@@ -16,13 +16,16 @@ terminal: ~/.bashrc ~/.bash_profile ~/.profile ~/.zshrc
 ~/.zshrc:
 	ln -s $(PWD)/terminal/zshrc $@
 
-editor: ~/.vimrc ~/.vim
+editor: ~/.vimrc ~/.vim pathogen
 	@echo Linking vimrc and vim
 
 ~/.vimrc:
 	ln -s $(PWD)/editor/vimrc $@
 ~/.vim:
 	ln -s $(PWD)/editor/vim $@
+pathogen:
+	mkdir -p ~/.vim/autoload ~/.vim/bundle
+	curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
 versionctrl: ~/.gitattributes ~/.gitconfig
 
