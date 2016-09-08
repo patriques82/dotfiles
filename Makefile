@@ -4,8 +4,8 @@
 
 all: terminal editor versionctrl
 
-terminal: ~/.bashrc ~/.bash_profile ~/.profile ~/.zshrc
-	@echo Linking bashrc, bash_profile, profile, zshrc
+terminal: ~/.bashrc ~/.bash_profile ~/.profile ~/.zshrc oh-my-zsh
+	@echo Linking bashrc, bash_profile, profile, zshrc, oh-my-zsh
 
 ~/.profile:
 	ln -s $(PWD)/terminal/profile $@
@@ -15,6 +15,10 @@ terminal: ~/.bashrc ~/.bash_profile ~/.profile ~/.zshrc
 	ln -s $(PWD)/terminal/bash_profile $@
 ~/.zshrc:
 	ln -s $(PWD)/terminal/zshrc $@
+
+# installs a nice interface to iterm (curl and git required)
+oh-my-zsh:
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 editor: ~/.vimrc ~/.vim pathogen
 	@echo Linking vimrc and vim
