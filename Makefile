@@ -18,7 +18,7 @@ terminal: ~/.bashrc ~/.bash_profile ~/.profile ~/.zshrc oh-my-zsh
 
 # installs a nice interface to iterm (curl and git required)
 oh-my-zsh:
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	curl -L https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
 
 editor: ~/.vimrc ~/.vim pathogen
 	@echo Linking vimrc and vim
