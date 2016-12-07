@@ -95,3 +95,7 @@ compinit
 source ~/.oh-my-zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/patriknygren/.sdkman"
+[[ -s "/Users/patriknygren/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/patriknygren/.sdkman/bin/sdkman-init.sh"

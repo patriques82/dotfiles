@@ -105,22 +105,27 @@ nnoremap <C-t> :call NumberToggle()<cr>
 " Formatting options
 au BufNewFile,BufRead *.ejs set filetype=html " read ejs as html
 
-" Mappings
-map <Leader>n :NERDTreeToggle<CR> " (Nerdtree)
-cnoremap fw :FixWhitespace " (FixWhitespace)
-map <Leader>p :CtrlPClearAllCaches " (clear cache for CtrlP)
-
 """" Plugins
+
+" NerdTree
+map <Leader>n :NERDTreeToggle<CR> " (Nerdtree)
+
+" Fix white space
+cnoremap fw :FixWhitespace " (FixWhitespace)
 
 " CtrlP
 set runtimepath^=~/.vim/bundle/ctrlp.vim
+map <Leader>p :CtrlPClearAllCaches " (clear cache for CtrlP)
 
 " Syntactis
+map <silent> <Leader>e :Errors<CR> " (show syntastic errors)
+map <Leader>s :SyntasticToggleMode<CR> " (Activate/unactivate syntastic)
+
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 0 " Turn off quickfix messages
+let g:syntastic_auto_loc_list = 1 " Turn off quickfix messages
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0

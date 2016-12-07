@@ -55,6 +55,8 @@ alias dstop='docker stop $(docker ps -a -q)' # stop all containers
 alias dremove='docker rm $(docker ps -a -q)' # remove all containers
 alias dclean='docker rm $(docker ps -aq -f status=exited)' # clean exited containers
 
+alias loc="find . -name '*.java' | xargs wc -l"
+
 
 # Silly stuff
 # cmatrix (for matrix experience when running bash)
@@ -63,3 +65,7 @@ alias dclean='docker rm $(docker ps -aq -f status=exited)' # clean exited contai
 
 # tell ctags from homebrew
 ctags=/usr/local/bin/ctags
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/patriknygren/.sdkman"
+[[ -s "/Users/patriknygren/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/patriknygren/.sdkman/bin/sdkman-init.sh"

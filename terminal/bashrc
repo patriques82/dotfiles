@@ -1,3 +1,8 @@
 source ~/.profile
 
+alias mikeserver="ssh patrik@138.68.66.77"
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/patriknygren/.sdkman"
+[[ -s "/Users/patriknygren/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/patriknygren/.sdkman/bin/sdkman-init.sh"
