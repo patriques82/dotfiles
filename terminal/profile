@@ -66,6 +66,13 @@ alias loc="find . -name '*.java' | xargs wc -l"
 # tell ctags from homebrew
 ctags=/usr/local/bin/ctags
 
+# prints lines of code in project. Usage: loc java
+loc() {
+    if [[ $# = 1 ]]; then
+        find . -name "*.$1" | xargs wc -l
+    fi
+}
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/patriknygren/.sdkman"
 [[ -s "/Users/patriknygren/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/patriknygren/.sdkman/bin/sdkman-init.sh"
