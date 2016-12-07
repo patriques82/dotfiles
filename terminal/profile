@@ -63,3 +63,10 @@ alias dclean='docker rm $(docker ps -aq -f status=exited)' # clean exited contai
 
 # tell ctags from homebrew
 ctags=/usr/local/bin/ctags
+
+# prints lines of code in project. Usage: loc java
+loc() {
+    if [[ $# = 1 ]]; then
+        find . -name "*.$1" | xargs wc -l
+    fi
+}
