@@ -1,14 +1,62 @@
+" source the vimrc file after saving it
+augroup sourcing
+  autocmd!
+  autocmd bufwritepost .vimrc source .vimrc
+augroup END
+
 let mapleader = ","
-syntax enable
+if !exists("g:syntax_on")
+    syntax enable
+endif
+filetype plugin indent on
+
+" red visible cursor
+hi Cursor guibg=red
+" Don't blink normal mode cursor
+set guicursor=n-v-c:block-Cursor
+set guicursor+=n-v-c:blinkon0
+
+" don't close buffers when you aren't displaying them
+set hidden
+
+" previous buffer, next buffer
+nnoremap <leader>bp :bp<cr>
+nnoremap <leader>bn :bn<cr>
+
+" Return to last edit position when opening files
+augroup last_edit
+  autocmd!
+  autocmd BufReadPost *
+         \ if line("'\"") > 0 && line("'\"") <= line("$") |
+         \   exe "normal! g`\"" |
+         \ endif
+augroup END
+" Remember info about open buffers on close
+set viminfo^=%
+
+set completeopt=menuone,menu,longest
+
+set wildignore+=*\\tmp\\*,*.swp,*.swo,*.zip,.git,.cabal-sandbox
+set wildmode=longest,list,full
+set wildmenu
+set completeopt+=longest
+
+" Pressing ,ss will toggle and untoggle spell checking
+map <leader>sc :setlocal spell!<cr>
+
+" Configuration for vim-css-color
+let g:cssColorVimDoNotMessMyUpdatetime = 1
+
+if $TERM_PROGRAM =~ "iTerm"
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
+endif
 
 " Colorschemes and stuff (the most important part of this vimrc)
 set guifont=Monaco:h13
 set t_Co=256
 let g:solarized_termcolors=256
 colors solarized " default colorscheme
-
-" Configuration for vim-css-color
-let g:cssColorVimDoNotMessMyUpdatetime = 1
 
 " Toggle colorschemes <Leader>c
 nnoremap <silent> <Leader>c :exec "color " .
@@ -27,10 +75,10 @@ set wrapmargin=0
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
 
 " Tabspecific options
-filetype plugin indent on
 set expandtab                  " Use spaces instead of tabs
-set softtabstop=4              " a tab is 4 spaces
-set shiftwidth=4               " number of spaces to use for autoindenting
+set softtabstop=2              " a tab is 2 spaces
+set shiftwidth=2               " number of spaces to use for autoindenting
+set tabstop=2
 
 " search options
 set showmatch                  " set show matching parenthesis
@@ -42,17 +90,13 @@ set number                     " always show line numbers
 set hlsearch                   " highlight search terms
 set incsearch                  " show search matches as you type
 set noswapfile                 " don´t create a swap file
+set nobackup                   " no backup (we have git)
 set visualbell                 " turn off error sound
-
-" For Xiki (Not completed yet)
-" let $XIKI_DIR = "~/xiki"
-" source $XIKI_DIR/etc/vim/xiki.vim
 
 " For Pathogen (handle plugins)
 set nocompatible
 execute pathogen#infect()
 syntax on
-filetype plugin indent on
 
 " Easy window navigation (thank god for this!)
 map <C-h> <C-w>h
@@ -67,18 +111,6 @@ nmap N Nzz
 nmap } }zz
 nmap { {zz
 
-" EasyMotion setup
-let g:EasyMotion_smartcase = 1  " enables smartcase search
-nmap <Leader>l <Plug>(easymotion-lineforward)
-nmap <Leader>j <Plug>(easymotion-j)zz
-nmap <Leader>k <Plug>(easymotion-k)zz
-nmap <Leader>h <Plug>(easymotion-linebackward)
-
-" Ctags (To create ctags file 'ctags *'
-set tags=./tags; " Tells Vim where to look for the tags file.
-nnoremap <leader>. :CtrlPTag<cr>
-nnoremap <silent> <Leader>b :TagbarToggle<CR>
-
 " Toggle relative numbers <C-t>
 function! NumberToggle()
     if(&relativenumber == 1)
@@ -89,23 +121,100 @@ function! NumberToggle()
 endfunc
 nnoremap <C-t> :call NumberToggle()<cr>
 
-" Highlight any text that surpasses the given value
-"augroup vimrc_autocmds
-  "autocmd BufEnter * highlight OverLength
-                    "\ ctermbg=236 guibg=#303030
-  "autocmd BufEnter * match OverLength /\%81v.*/
-"augroup END
+" Tags
+set tags=tags;/,codex.tags;/
+set cst
+set csverb
 
-" open Nerdtree automatically when starting up
-"autocmd vimenter * NERDTree
+" Generate haskell tags with codex and hscope
+map <leader>tg :!codex update --force<CR>:call system("git-hscope -X TemplateHaskell")<CR><CR>:call LoadHscope()<CR>
+set csprg=hscope
+set csto=1 " search codex tags first
 
-" apperance of directory in Explore
-"let g:netrw_liststyle=3
+" TODO: does this work?? Gives currently error when searching
+" Show uses of symbol (hscope)
+nnoremap <silent> <leader>ts :cs find c <C-R>=expand("<cword>")<CR><CR>
 
-" Formatting options
-au BufNewFile,BufRead *.ejs set filetype=html " read ejs as html
+" Automatically make hscope connections
+function! LoadHscope()
+  let db = findfile("hscope.out", ".;")
+  if (!empty(db))
+    let path = strpart(db, 0, match(db, "/hscope.out$"))
+    set nocscopeverbose " suppress 'duplicate connection' error
+    exe "cs add " . db . " " . path
+    set cscopeverbose
+  endif
+endfunction
+au BufEnter /*.hs call LoadHscope()
+
+" Haskell configuration for the Tagbar plugin that uses hasktags
+let g:tagbar_type_haskell = {
+    \ 'ctagsbin'  : 'hasktags',
+    \ 'ctagsargs' : '-x -c -o-',
+    \ 'kinds'     : [
+        \  'm:modules:0:1',
+        \  'd:data: 0:1',
+        \  'd_gadt: data gadt:0:1',
+        \  't:type names:0:1',
+        \  'nt:new types:0:1',
+        \  'c:classes:0:1',
+        \  'cons:constructors:1:1',
+        \  'c_gadt:constructor gadt:1:1',
+        \  'c_a:constructor accessors:1:1',
+        \  'ft:function types:1:1',
+        \  'fi:function implementations:0:1',
+        \  'o:others:0:1'
+    \ ],
+    \ 'sro'        : '.',
+    \ 'kind2scope' : {
+        \ 'm' : 'module',
+        \ 'c' : 'class',
+        \ 'd' : 'data',
+        \ 't' : 'type'
+    \ },
+    \ 'scope2kind' : {
+        \ 'module' : 'm',
+        \ 'class'  : 'c',
+        \ 'data'   : 'd',
+        \ 'type'   : 't'
+    \ }
+  \ }
+
+" Completion
+set completeopt+=longest
+
+" Use buffer words as default tab completion
+let g:SuperTabDefaultCompletionType = '<c-x><c-p>'
+
+"""" Git
+let g:extradite_width = 60
+
+function! NonintrusiveGitGrep(term)
+    execute "copen"
+    " Map 't' to open selected item in new tab
+    execute "nnoremap <silent> <buffer> t <C-W><CR><C-W>T"
+    execute "silent! Ggrep " . a:term
+    execute "redraw!"
+endfunction
+
+command! -nargs=1 GGrep call NonintrusiveGitGrep(<q-args>)
+nmap <leader>gs :Gstatus<CR>
+nmap <leader>gg :copen<CR>:GGrep
+nmap <leader>gl :Extradite!<CR>
+nmap <leader>gd :Gdiff<CR>
+nmap <leader>gb :Gblame<CR
 
 """" Plugins
+
+" EasyMotion setup
+let g:EasyMotion_smartcase = 1  " enables smartcase search
+nmap <Leader>l <Plug>(easymotion-lineforward)
+nmap <Leader>j <Plug>(easymotion-j)zz
+nmap <Leader>k <Plug>(easymotion-k)zz
+nmap <Leader>h <Plug>(easymotion-linebackward)
+
+" Tagbar
+map <leader>tt :TagbarToggle<CR>
 
 " NerdTree
 map <Leader>n :NERDTreeToggle<CR> " (Nerdtree)
@@ -115,17 +224,59 @@ cnoremap fw :FixWhitespace " (FixWhitespace)
 
 " CtrlP
 set runtimepath^=~/.vim/bundle/ctrlp.vim
-map <Leader>p :CtrlPClearAllCaches " (clear cache for CtrlP)
+map <silent> <Leader>p :CtrlP()<CR>
+nnoremap <leader>pt :CtrlPTag<cr>
+noremap <leader>pb :CtrlPBuffer<cr>
+map <Leader>pc :CtrlPClearAllCaches " (clear cache for CtrlP)
+let g:ctrlp_max_files=0
+let g:ctrlp_show_hidden=1
+let g:ctrlp_custom_ignore = { 'dir': '\v[\/](.git|.cabal-sandbox|.stack-work)$' }
+
+" Supertab
+" configure supertab to dispatch to neco-ghc’s tab completion routines
+let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
+if has("gui_running")
+    imap <c-space> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+else " no gui
+    if has("unix")
+        inoremap <Nul> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+    endif
+endif
+" necoghc to be the default tab completion method
+let g:haskellmode_completion_ghc = 1
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 " Syntactis
-map <silent> <Leader>e :Errors<CR> " (show syntastic errors)
 map <Leader>s :SyntasticToggleMode<CR> " (Activate/unactivate syntastic)
-
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1 " Turn off quickfix messages
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+" ghc-mod (GHC’s code competion capabilities, keyboard commands to ghc-mod functions)
+map <silent> tw :GhcModTypeInsert<CR>    " insert type
+map <silent> ts :GhcModSplitFunCase<CR>
+map <silent> tq :GhcModType<CR>          " see type of expression
+map <silent> te :GhcModTypeClear<CR>     " clear type of expression
+
+" haskell-vim
+let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
+let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
+let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
+let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
+let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
+let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
+let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
+let g:haskell_indent_guard = 2
+let g:haskell_indent_do = 3
+let g:haskell_indent_before_where = 2
+let g:haskell_indent_after_bare_where = 2
+let g:haskell_indent_where = 6
+let g:haskell_indent_let = 4
+let g:haskell_indent_case = 2
+let g:haskell_indent_case_alternative = 1
+let g:haskell_indent_if = 3
+let g:cabal_indent_section = 2

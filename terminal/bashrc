@@ -16,19 +16,19 @@
 # Binaries
 export PATH=/usr/local/bin:$PATH   # homebrew
 export PATH=/opt/local/sbin:$PATH
+export PATH=$PATH:/Developer/Applications/Xcode.app/Contents/MacOS/
 export PATH=$HOME/bin:$PATH  # my own exec
 export PATH=$HOME/.local/bin:$PATH # stack
 
 # Haskell
-export PATH=$HOME/Library/Haskell/bin:$PATH # get and use cabal-updates, like hsc2hs
-export PATH=$HOME/Library/Haskell/ghc-7.6.3/lib/hlint-1.9.3/bin/hlint:$PATH # hlint
+# export PATH=$HOME/Library/Haskell/bin:$PATH # get and use cabal-updates, like hsc2hs
 
 # Java maven
 export M2_HOME=$HOME/Applications/apache-maven-3.3.3
 export M2=$M2_HOME/bin
 export PATH=$M2:$PATH
 export M2_REPO=$HOME/.m2/repository
-#export JAVA_HOME=`/usr/libexec/java_home -v 1.7` # this is mostly for maven
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8` # for maven and tomcat
 
 # Scala
 export SCALA_HOME=/usr/local/share/scala-2.11.7
@@ -36,6 +36,11 @@ export PATH=$SCALA_HOME/bin:$PATH
 
 # Vim
 export EDITOR="/usr/bin/vim"
+
+# Python
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/workspace
+source /usr/local/bin/virtualenvwrapper.sh
 
 # Ruby
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
