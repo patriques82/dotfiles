@@ -1,3 +1,6 @@
+syntax on
+filetype plugin indent on
+
 " source the vimrc file after saving it
 autocmd bufwritepost .vimrc source $MYVIMRC
 
@@ -5,7 +8,6 @@ let mapleader = ","
 if !exists("g:syntax_on")
     syntax enable
 endif
-filetype plugin indent on
 
 " red visible cursor
 hi Cursor guibg=red
@@ -90,10 +92,6 @@ set noswapfile                 " don´t create a swap file
 set nobackup                   " no backup (we have git)
 set visualbell                 " turn off error sound
 
-" For Pathogen (handle plugins)
-set nocompatible
-execute pathogen#infect()
-syntax on
 
 " Easy window navigation (thank god for this!)
 map <C-h> <C-w>h
@@ -122,6 +120,10 @@ nnoremap <C-t> :call NumberToggle()<cr>
 set tags=tags;/,codex.tags;/
 set cst
 set csverb
+
+" For Pathogen (handle plugins)
+set nocompatible
+execute pathogen#infect()
 
 " Generate haskell tags with codex and hscope
 map <leader>tg :!codex update --force<CR>:call system("git-hscope -X TemplateHaskell")<CR><CR>:call LoadHscope()<CR>
@@ -231,14 +233,21 @@ let g:ctrlp_custom_ignore = { 'dir': '\v[\/](.git|.cabal-sandbox|.stack-work)$' 
 " Use buffer words as default tab completion
 let g:SuperTabDefaultCompletionType = '<c-x><c-p>'
 
+" Clither
+" location of clang
+let g:clighter_libclang_file = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+let g:clighter_autostart = 1
+let g:clighter_rename_prompt_level = 1
+let g:clighter_enable_cross_rename = 1
+
 " Syntactis
 map <Leader>s :SyntasticToggleMode<CR> " (Activate/unactivate syntastic)
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1 " Turn off quickfix messages
-let g:syntastic_check_on_open = 1
+let g:syntastic_auto_loc_list = 0 " Turn off quickfix messages
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
 " ghc-mod (GHC’s code competion capabilities, keyboard commands to ghc-mod functions)

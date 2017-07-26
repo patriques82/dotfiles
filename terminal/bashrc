@@ -18,10 +18,10 @@ export PATH=/usr/local/bin:$PATH   # homebrew
 export PATH=/opt/local/sbin:$PATH
 export PATH=$PATH:/Developer/Applications/Xcode.app/Contents/MacOS/
 export PATH=$HOME/bin:$PATH  # my own exec
-export PATH=$HOME/.local/bin:$PATH # stack
 
 # Haskell
 export PATH=$HOME/Library/Haskell/bin:$PATH # get and use cabal-updates
+export PATH=$HOME/.local/bin:$PATH # stack
 
 # Java maven
 export M2_HOME=$HOME/Applications/apache-maven-3.3.3
